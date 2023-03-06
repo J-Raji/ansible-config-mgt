@@ -45,3 +45,17 @@
 
 ![ansible settings](./Images/ansible-setting.png)
 
+##Step2
+
+[] Clone repository 
+`git clone git@github.com:J-Raji/ansible-config-mgt.git`
+
+#Begin Ansible Development
+
+1. Create a new branch PRJ-11
+
+![PRJ-11 branch created](./Images/prj-11.png)
+
+2. Checkout newly feature branch in local machine
+
+![PRJ-11 branch checked](./Images/check.png)
