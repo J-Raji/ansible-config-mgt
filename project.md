@@ -98,14 +98,62 @@
 
 []Update your inventory/dev.yml file with this snippet of code:
 [nfs]
-<NFS-Server-172.31.12.2> ansible_ssh_user='ec2-user'
+172.31.12.2 ansible_ssh_user='ec2-user'
 
 [webservers]
-<Web-Server1-172.31.5.149> ansible_ssh_user='ec2-user'
-<Web-Server2-172.31.1.20> ansible_ssh_user='ec2-user'
+172.31.5.149 ansible_ssh_user='ec2-user'
+172.31.1.20 ansible_ssh_user='ec2-user'
 
 [db]
-<Database-172.31.8.204> ansible_ssh_user='ec2-user' 
+172.31.8.204 ansible_ssh_user='ec2-user' 
 
 [lb]
-<Load-Balancer-172.31.6.107> ansible_ssh_user='ubuntu'
+172.31.6.107 ansible_ssh_user='ubuntu'
+
+#Create common playbook
+
+[]Update common.yml file
+
+---
+- name: update web, nfs and db servers
+  hosts: webservers, nfs, db
+  remote_user: ec2-user
+  become: yes
+  become_user: root
+  tasks:
+    - name: ensure wireshark is at the latest version
+      yum:
+        name: wireshark
+        state: latest
+
+- name: update LB server
+  hosts: lb
+  remote_user: ubuntu
+  become: yes
+  become_user: root
+  tasks:
+    - name: Update apt repo
+      apt: 
+        update_cache: yes
+
+    - name: ensure wireshark is at the latest version
+      apt:
+        name: wireshark
+        state: latest
+
+[]commit code to github
+
+1.use git commands to add, commit and push your branch to GitHub
+
+`git status`
+
+`git add <selected files>`
+
+`git commit -m "commit message"`
+
+2.Create a Pull request (PR)
+`git pull`
+
+
+
+
